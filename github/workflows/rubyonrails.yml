@@ -24,7 +24,11 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://zemi_backend:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/zemi_backend_test"
+      TEST_DATABASE_NAME: zemi_backend_test
+      TEST_DATABASE_USERNAME: zemi_backend
+      TEST_DATABASE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      TEST_DATABASE_HOST: localhost
+      TEST_DATABASE_PORT: 5432
       BUNDLE_WITHOUT: "development production default"
       BUNDLE_WITH: "test"
     steps:
