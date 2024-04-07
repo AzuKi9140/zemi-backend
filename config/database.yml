@@ -21,25 +21,25 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['ZEMI_BACKEND_DATABASE_NAME'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  username: <%= ENV['ZEMI_BACKEND_DATABASE_USERNAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
 
   # The password associated with the PostgreSQL role (username).
-  password: <%= ENV['ZEMI_BACKEND_DATABASE_PASSWORD'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: <%= ENV['ZEMI_BACKEND_DATABASE_HOST'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  port: <%= ENV['ZEMI_BACKEND_DATABASE_PORT'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -55,7 +55,11 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: zemi_backend_test
+  database: <%= ENV['TEST_DATABASE_NAME'] %>
+  username: <%= ENV['TEST_DATABASE_USERNAME'] %>
+  password: <%= ENV['TEST_DATABASE_PASSWORD'] %>
+  host: <%= ENV['TEST_DATABASE_HOST'] %>
+  port: <%= ENV['TEST_DATABASE_PORT'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
