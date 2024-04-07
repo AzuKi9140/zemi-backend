@@ -45,3 +45,10 @@ group :development do
   # gem "spring"
 end
 
+group :linters do
+  # Use RuboCop to enforce a consistent Ruby code style [https://github.com/rubocop/rubocop]
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-performance", require: false
+end
+
