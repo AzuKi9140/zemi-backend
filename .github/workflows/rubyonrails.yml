@@ -27,10 +27,10 @@ jobs:
     env:
       RAILS_ENV: test
       TEST_DATABASE_NAME: zemi_backend_test
-      TEST_DATABASE_USERNAME: zemi_backend
-      TEST_DATABASE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      TEST_DATABASE_HOST: localhost
-      TEST_DATABASE_PORT: 5432
+      DATABASE_USERNAME: zemi_backend
+      DATABASE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 5432
       BUNDLE_WITHOUT: "development production"
       BUNDLE_WITH: "test"
     steps:
