@@ -29,7 +29,7 @@ jobs:
       TEST_DATABASE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       TEST_DATABASE_HOST: localhost
       TEST_DATABASE_PORT: 5432
-      BUNDLE_WITHOUT: "development production default"
+      BUNDLE_WITHOUT: "development production"
       BUNDLE_WITH: "test"
     steps:
       - name: Checkout code
@@ -49,7 +49,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     env:
-      BUNDLE_WITHOUT: "development production default test"
+      BUNDLE_WITHOUT: "development production test"
       BUNDLE_WITH: "linters"
     steps:
       - name: Checkout code
