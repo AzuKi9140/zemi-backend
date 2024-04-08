@@ -1,24 +1,49 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+このREADMEでは、九州大学経済学部伊豆永研究室のWebサイトのバックエンドリポジトリに必要なステップを文書化します。
 
-Things you may want to cover:
+## 概要
 
-* Ruby version
+このリポジトリは、九州大学経済学部伊豆永研究室のWebサイトのバックエンド部分を管理しています。Railsを使用して開発されており、PostgreSQLをデータベースとして使用しています。
 
-* System dependencies
+## Ruby バージョン
 
-* Configuration
+- Ruby 3.2.3
 
-* Database creation
+## システム依存性
 
-* Database initialization
+- Rails 7.1.3
+- PostgreSQL
+- Puma Webサーバー
 
-* How to run the test suite
+## 設定
 
-* Services (job queues, cache servers, search engines, etc.)
+このプロジェクトは `dotenv-rails` を使用しています。環境変数は `.env` ファイルに設定してください。
 
-* Deployment instructions
 
-* ...
+## 開発環境のセットアップ
+
+開発環境をセットアップするには、Dockerとdocker-composeが必要です。セットアップ手順は以下の通りです。
+
+1. リポジトリをクローンします。
+2. `docker-compose up -d` を実行して、必要なサービスをバックグラウンドで起動します。
+3. `docker-compose exec app bash` を実行して、appコンテナのbashに入ります。
+4. コンテナ内で、`bundle exec rails db:create` を実行して、DBを作成します。
+5. コンテナ内で、`bundle exec rails db:migrate` を実行して、DBのマイグレーションを実行します。
+6. コンテナ内で、`bundle exec rails s -b 0.0.0.0` を実行して、Railsサーバーを起動します。
+
+## デプロイメント指示
+
+現在、このアプリケーションはGoogle Cloud Platform(GCP)にデプロイする予定ですが、まだデプロイは行われていません。
+
+## サービス
+
+- ジョブキュー
+- キャッシュサーバー
+- 検索エンジン
+
+詳細なデプロイメント指示やサービスの設定については、後日更新されます。
+
+## 注意事項
+
+このリポジトリは開発中であり、変更が頻繁に行われます。最新の情報については、常に最新のコミットをチェックしてください。
