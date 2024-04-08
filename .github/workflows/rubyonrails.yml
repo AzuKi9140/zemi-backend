@@ -10,6 +10,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -22,14 +24,19 @@ jobs:
           POSTGRES_DB: zemi_backend_test
           POSTGRES_USER: zemi_backend
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
       RAILS_ENV: test
       TEST_DATABASE_NAME: zemi_backend_test
-      TEST_DATABASE_USERNAME: zemi_backend
-      TEST_DATABASE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      TEST_DATABASE_HOST: localhost
-      TEST_DATABASE_PORT: 5432
-      BUNDLE_WITHOUT: "development production default"
+      DATABASE_USERNAME: zemi_backend
+      DATABASE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 5432
+      BUNDLE_WITHOUT: "development production"
       BUNDLE_WITH: "test"
     steps:
       - name: Checkout code
@@ -40,6 +47,8 @@ jobs:
         with:
           bundler-cache: true
       # Add or replace database setup steps here
+      - name: Create database
+        run: bundle exec rails db:create RAILS_ENV=${{ env.RAILS_ENV }}
       - name: Set up database schema
         run: bundle exec rails db:schema:load
       # Add or replace test runners here
@@ -49,7 +58,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     env:
-      BUNDLE_WITHOUT: "development production default test"
+      BUNDLE_WITHOUT: "development production test"
       BUNDLE_WITH: "linters"
     steps:
       - name: Checkout code
@@ -60,8 +69,8 @@ jobs:
           bundler-cache: true
       # Add or replace any other lints here
       - name: Security audit dependencies
-        run: bin/bundler-audit --update
+        run: bundle exec bundler-audit --update
       - name: Security audit application code
-        run: bin/brakeman -q -w2
+        run: bundle exec brakeman -q -w2
       - name: Lint Ruby files
-        run: bin/rubocop --parallel
+        run: bundle exec rubocop --parallel
