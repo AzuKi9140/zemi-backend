@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16
+    volumes:
+      # - ./app/db/postgresql/data:/var/lib/postgresql/data
+      - ./app/db/postgres:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:${DATABASE_PORT}"
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=C
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+
