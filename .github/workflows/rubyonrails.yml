@@ -34,7 +34,7 @@ jobs:
       TEST_DATABASE_NAME: zemi_backend_test
       DATABASE_USERNAME: zemi_backend
       DATABASE_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      DATABASE_HOST: postgres
+      DATABASE_HOST: localhost
       DATABASE_PORT: 5432
       BUNDLE_WITHOUT: "development production"
       BUNDLE_WITH: "test"
