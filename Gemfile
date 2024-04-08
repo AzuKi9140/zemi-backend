@@ -52,5 +52,7 @@ group :linters do
   gem "rubocop", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-performance", require: false
+  # Add bundler-audit for security vulnerability scanning
+  gem "bundler-audit", require: false
 end
 
